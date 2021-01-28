@@ -110,7 +110,6 @@ macro_rules! mkstr {
     format!("{}\0", $str).as_ptr() as _
   };
 }
-
 fn load_cell(bld: BuilderRef, p_rsp: ValueRef, p_stack: ValueRef) -> (ValueRef, ValueRef) {
   let nil = "\0".as_ptr() as _;
   let rsp = bld.build_load(p_rsp, nil);
@@ -135,9 +134,9 @@ fn compile(src: &[Tok], outfile: &str) {
   let putchar = mdl.add_function(
     mkstr!("putchar"),
     void_type().function_type(&mut i32::ty().0, 1, 0),
-  );
+    );
   let getchar = mdl.add_function(mkstr!("getchar"), 
-    i32::ty().function_type(0 as _, 0, 0));
+                  i32::ty().function_type(0 as _, 0, 0));
 
   let plus = mdl.add_function(mkstr!("plus"), inst_ty);
   {
@@ -196,9 +195,9 @@ fn compile(src: &[Tok], outfile: &str) {
     bld.build_store(bld.build_sub(bld.build_load(rsp, nil), 1.val(), nil), rsp);
     bld.build_ret_void();
   }
-  
+
   let loadcell = mdl.add_function(mkstr!("load_cell"), 
-  i8::ty().function_type(args.as_ptr() as _, args.len() as _, 0));
+                  i8::ty().function_type(args.as_ptr() as _, args.len() as _, 0));
   {
     bld.position_builder_at_end(ctx.append_basic_block_in_context(loadcell, nil));
     let rsp = loadcell.get_param(0);
@@ -230,27 +229,35 @@ fn compile(src: &[Tok], outfile: &str) {
   let mut bbs = vec![];
   for inst in src.iter() {
     match inst {
+
       Tok::RightChevron => {
         bld.build_call(right_chevron, args.as_ptr() as _ , args.len() as _, nil);
       }
+
       Tok::LeftChevron => {
         bld.build_call(left_chevron, args.as_ptr() as _ , args.len() as _, nil);
       }
+
       Tok::Plus => {
         bld.build_call(plus, args.as_ptr() as _ , args.len() as _, nil);
       }
+
       Tok::Minus => {
         bld.build_call(minus, args.as_ptr() as _ , args.len() as _, nil);
       }
+
       Tok::Dot => {
         bld.build_call(dot, args.as_ptr() as _ , args.len() as _, nil);
       }
+
       Tok::Comma => {
         bld.build_call(comma, args.as_ptr() as _ , args.len() as _, nil);
       }
+
       Tok::Debug => {
         bld.build_call(debug, args.as_ptr() as _ , args.len() as _, nil);
       }
+
       Tok::LeftBracket(_) => {
         let head = ctx.append_basic_block_in_context(func, mkstr!("head"));
         let tail = ctx.append_basic_block_in_context(func, mkstr!("tail"));
@@ -261,6 +268,7 @@ fn compile(src: &[Tok], outfile: &str) {
         bld.build_cond_br(pred, tail, head);
         bld.position_builder_at_end(head);
       }
+
       Tok::RightBracket(_) => {
         let (head, tail) = bbs.pop().unwrap();
 
@@ -310,10 +318,7 @@ fn main() {
     print_usage_and_exit::<()>();
     panic!()
   }
-
-  
   let src = std::fs::read_to_string(&file).unwrap();
   let prog = parse(&src);
   compile(&prog, &out);
-
 }
