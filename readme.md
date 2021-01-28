@@ -3,12 +3,20 @@ inspired by [bfc](https://github.com/Wilfred/bfc)
 
 Currently only compiles to llvm ir
 
+Requires llvm-11 and clang
+```
+sudo apt install libllvm11 clang
+```
+
+You can test the compiler with
 ```
 git clone https://github.com/atkurtul/brainlube
 cd brainlube
 cargo build
 cp ./target/debug/brainlube .
-brainlube <your file> -o <output file>
+brainlube <brainfuck source file> -o <llvm-ir file>
+clang <llvm-ir file> -o <binary file>
+./<binary file>
 ```
 
 Instructions translate to
