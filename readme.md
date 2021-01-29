@@ -24,6 +24,9 @@ or simply run the `compile_tests.sh` script to compile every sample program in t
 <br/><br/>
 tests are taken from [brainfuck](https://github.com/fabianishere/brainfuck)
 
+
+![Mandelbrot](https://github.com/atkurtul/brainlube/mandelbrot.png)
+
 ---
 # Instructions translate to
 
