@@ -14,7 +14,7 @@ for file in ./tests/*; do
     name="${tmp##*/}"
     echo -ne $GREEN"Compiling $BLUE$name$NC >\n"
     $CC $file -o $tmp.ll
-    clang $tmp.ll -o ./bin/$name
+    clang $tmp.ll -o ./bin/$name -Wno-override-module
     echo -ne $GREEN"DONE\n$NC"
     echo -ne "##########################################"
     echo "##########################################"
