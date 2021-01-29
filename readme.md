@@ -24,9 +24,8 @@ or simply run the `compile_tests.sh` script to compile every sample program in t
 <br/><br/>
 tests are taken from [brainfuck](https://github.com/fabianishere/brainfuck)
 
-
-<br/><br/>
-Instructions translate to
+---
+# Instructions translate to
 
 # +
 ```
