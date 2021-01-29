@@ -22,10 +22,9 @@ clang <llvm-ir file> -o <binary file>
 
 or simply run the `compile_tests.sh` script to compile every sample program in the tests directory.
 <br/><br/>
-tests are taken from [brainfuck](https://raw.githubusercontent.com/atkurtul/brainlube/master/mandelbrot.png)
+tests are taken from [brainfuck](https://github.com/fabianishere/brainfuck)
 
-
-![Mandelbrot](https://github.com/atkurtul/brainlube/mandelbrot.png)
+![Mandelbrot](https://raw.githubusercontent.com/atkurtul/brainlube/master/mandelbrot.png)
 
 ---
 # Instructions translate to
