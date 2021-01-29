@@ -260,7 +260,7 @@ fn compile(src: &[Tok], outfile: &str) {
 
       Tok::LeftBracket(_) => {
         let head = ctx.append_basic_block_in_context(func, mkstr!("head"));
-        let tail = ctx.append_basic_block_in_context(func, mkstr!("tail"));
+        let tail = ctx.create_basic_block_in_context(mkstr!("tail"));
         bbs.push((head, tail));
 
         let cell = bld.build_call(loadcell, args.as_ptr() as _ , args.len() as _, nil);
@@ -275,7 +275,7 @@ fn compile(src: &[Tok], outfile: &str) {
         let cell = bld.build_call(loadcell, args.as_ptr() as _ , args.len() as _, nil);
         let pred = bld.build_i_cmp(LLVMIntPredicate::LLVMIntNE, cell, 0i8.val(), nil);
         bld.build_cond_br(pred, head, tail);
-
+        bld.insert_existing_basic_block_after_insert_block(tail);
         bld.position_builder_at_end(tail);
       }
       Tok::Halt => {
