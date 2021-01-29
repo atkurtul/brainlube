@@ -9,16 +9,23 @@ sudo apt install libllvm11 clang
 ```
 
 You can test the compiler with
+
 ```
 git clone https://github.com/atkurtul/brainlube
 cd brainlube
-cargo build
-cp ./target/debug/brainlube .
+cargo build --release
+cp ./target/release/brainlube .
 brainlube <brainfuck source file> -o <llvm-ir file>
 clang <llvm-ir file> -o <binary file>
 ./<binary file>
 ```
 
+or simply run the `compile_tests.sh` script to compile every sample program in the tests directory.
+<br/><br/>
+tests are taken from [brainfuck](https://github.com/fabianishere/brainfuck)
+
+
+<br/><br/>
 Instructions translate to
 
 # +

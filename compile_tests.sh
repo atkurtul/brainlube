@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-CC=./target/debug/brainlube
+cargo build --release
+CC=./target/release/brainlube
 
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -17,7 +18,5 @@ for file in ./tests/*; do
     echo -ne $GREEN"DONE\n$NC"
     echo -ne "##########################################"
     echo "##########################################"
-    sleep 0.2
   fi
 done
-
